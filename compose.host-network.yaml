@@ -1,0 +1,26 @@
+name: cas-edge-proxy-host-network
+
+services:
+  proxy:
+    image: cas-edge-proxy:1.0.0
+    build:
+      context: .
+      args:
+        VERSION: "1.0.0"
+    container_name: cas-edge-proxy
+    restart: unless-stopped
+    init: true
+    network_mode: host
+    user: "0:0"
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_RAW
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ./config/config.host-network.json:/config/config.json:ro
+    stop_grace_period: 15s

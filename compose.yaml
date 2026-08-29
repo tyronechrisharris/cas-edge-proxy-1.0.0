@@ -1,0 +1,32 @@
+name: cas-edge-proxy
+
+services:
+  proxy:
+    image: cas-edge-proxy:1.0.0
+    build:
+      context: .
+      args:
+        VERSION: "1.0.0"
+    container_name: cas-edge-proxy
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ./config/config.json:/config/config.json:ro
+    ports:
+      - "127.0.0.1:9090:9090/tcp"
+      - "11601:11601/tcp"
+      - "11602:11602/tcp"
+      - "18001:18001/tcp"
+      - "18443:18443/tcp"
+      - "18554:18554/tcp"
+      - "28001:28001/tcp"
+      - "28443:28443/tcp"
+      - "28554:28554/tcp"
+    stop_grace_period: 15s

@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "log_level": "INFO",
+  "status": {
+    "listen": "0.0.0.0:9090"
+  },
+  "services": [
+    {
+      "name": "rpm-01-broadcast",
+      "kind": "rpm_broadcast",
+      "listen": ["0.0.0.0:11601"],
+      "upstream": {
+        "address": "192.168.1.1:1600"
+      },
+      "client_writes": "discard",
+      "disconnect_clients_on_upstream_loss": true,
+      "reconnect_delay_seconds": 5,
+      "required": false
+    },
+    {
+      "name": "rpm-02-bidirectional",
+      "kind": "tcp",
+      "listen": ["0.0.0.0:11602"],
+      "upstream": {
+        "address": "192.168.1.2:1600"
+      },
+      "required": false
+    },
+    {
+      "name": "camera-01-http",
+      "kind": "tcp",
+      "listen": ["0.0.0.0:18001"],
+      "upstream": {
+        "address": "192.168.5.50:80"
+      }
+    },
+    {
+      "name": "camera-01-https",
+      "kind": "tcp",
+      "listen": ["0.0.0.0:18443"],
+      "upstream": {
+        "address": "192.168.5.50:443"
+      }
+    },
+    {
+      "name": "camera-01-rtsp-tcp",
+      "kind": "tcp",
+      "listen": ["0.0.0.0:18554"],
+      "upstream": {
+        "address": "192.168.5.50:554"
+      }
+    },
+    {
+      "name": "camera-02-http",
+      "kind": "tcp",
+      "listen": ["0.0.0.0:28001"],
+      "upstream": {
+        "address": "192.168.5.51:80"
+      }
+    },
+    {
+      "name": "camera-02-https",
+      "kind": "tcp",
+      "listen": ["0.0.0.0:28443"],
+      "upstream": {
+        "address": "192.168.5.51:443"
+      }
+    },
+    {
+      "name": "camera-02-rtsp-tcp",
+      "kind": "tcp",
+      "listen": ["0.0.0.0:28554"],
+      "upstream": {
+        "address": "192.168.5.51:554"
+      }
+    }
+  ]
+}

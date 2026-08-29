@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "log_level": "INFO",
+  "status": {
+    "listen": "127.0.0.1:9090"
+  },
+  "services": [
+    {
+      "name": "sc770-dual-cas",
+      "kind": "rpm_broadcast",
+      "listen": ["192.168.2.2:1600", "10.3.11.71:1600"],
+      "upstream": {
+        "address": "192.168.1.1:1600",
+        "interface": "eth1",
+        "source_ip": "192.168.1.2"
+      },
+      "client_writes": "discard",
+      "disconnect_clients_on_upstream_loss": true,
+      "required": true
+    },
+    {
+      "name": "camera-01-http",
+      "kind": "tcp",
+      "listen": ["10.3.11.135:80"],
+      "upstream": {
+        "address": "192.168.5.50:80",
+        "interface": "eth4",
+        "source_ip": "192.168.5.254"
+      }
+    },
+    {
+      "name": "camera-01-https",
+      "kind": "tcp",
+      "listen": ["10.3.11.135:443"],
+      "upstream": {
+        "address": "192.168.5.50:443",
+        "interface": "eth4",
+        "source_ip": "192.168.5.254"
+      }
+    },
+    {
+      "name": "camera-01-rtsp",
+      "kind": "tcp",
+      "listen": ["10.3.11.135:554"],
+      "upstream": {
+        "address": "192.168.5.50:554",
+        "interface": "eth4",
+        "source_ip": "192.168.5.254"
+      }
+    },
+    {
+      "name": "camera-02-http",
+      "kind": "tcp",
+      "listen": ["10.3.11.136:80"],
+      "upstream": {
+        "address": "192.168.5.51:80",
+        "interface": "eth4",
+        "source_ip": "192.168.5.254"
+      }
+    },
+    {
+      "name": "camera-02-https",
+      "kind": "tcp",
+      "listen": ["10.3.11.136:443"],
+      "upstream": {
+        "address": "192.168.5.51:443",
+        "interface": "eth4",
+        "source_ip": "192.168.5.254"
+      }
+    },
+    {
+      "name": "camera-02-rtsp",
+      "kind": "tcp",
+      "listen": ["10.3.11.136:554"],
+      "upstream": {
+        "address": "192.168.5.51:554",
+        "interface": "eth4",
+        "source_ip": "192.168.5.254"
+      }
+    }
+  ]
+}
